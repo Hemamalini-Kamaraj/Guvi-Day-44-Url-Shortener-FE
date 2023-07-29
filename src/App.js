@@ -69,7 +69,7 @@ function App() {
         }
       />
       <Route path="/sign-up" element={<Signup />} />
-      <Route path="/users/acc-verification/:id" element={<AccVerification />} />
+      <Route path="users/acc-verification/:id" element={<AccVerification />} />
       <Route path="/forgot-password" element={<ForgotPassword />} />
       <Route path="users/reset-password/:id" element={<ResetPassword />} />
       {loggedInUser ? (
