@@ -11,17 +11,17 @@ function Dashboard({ handleLogout }) {
   const token = jsonData["token"];
   const userName = jsonData["name"];
 
-  const config = {
-    headers: { authorization: `bearer ${token}` },
-  };
-
   useEffect(() => {
-    let user = baseUrl.get("/user/url", config).then((res) => {
-      setCount(res.data.length);
-      setShortenUrl(res.data);
-      Click ? setClick(false) : setClick(true);
-    });
-  }, [Click]);
+    baseUrl
+      .get("/user/url", {
+        headers: { authorization: `bearer ${token}` },
+      })
+      .then((res) => {
+        setCount(res.data.length);
+        setShortenUrl(res.data);
+        Click ? setClick(false) : setClick(true);
+      });
+  }, [Click, token]);
 
   const handleUrlShortening = async (e) => {
     e.preventDefault();
@@ -30,7 +30,9 @@ function Dashboard({ handleLogout }) {
     };
 
     try {
-      await baseUrl.post("/user/url", urlData, config);
+      await baseUrl.post("/user/url", urlData, {
+        headers: { authorization: `bearer ${token}` },
+      });
       setUrl("");
       Click ? setClick(false) : setClick(true);
       alert("Shortened URL created");

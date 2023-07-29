@@ -11,7 +11,6 @@ import LogOut from "./components/LogOut";
 
 function App() {
   const [loggedInUser, setLoggedInUser] = useState("");
-  const [logInToken, setLogInToken] = useState("");
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -23,7 +22,6 @@ function App() {
     if (loggedInUserJson) {
       const user = JSON.parse(loggedInUserJson);
       setLoggedInUser(user);
-      setLogInToken(user.token);
     }
   }, []);
 
@@ -41,7 +39,6 @@ function App() {
       const user = response.data;
       window.sessionStorage.setItem("loggedInUser", JSON.stringify(user));
       setLoggedInUser(user.name);
-      setLogInToken(user.resetToken);
       setEmail("");
       setPassword("");
       navigate("/dashboard");
@@ -52,7 +49,6 @@ function App() {
 
   const handleLogout = (e) => {
     e.preventDefault();
-    setLogInToken("");
     setLoggedInUser("");
     window.sessionStorage.clear();
     navigate("/");
